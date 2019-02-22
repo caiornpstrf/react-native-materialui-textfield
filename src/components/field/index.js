@@ -513,53 +513,52 @@ export default class TextField extends PureComponent {
       fontSize: titleFontSize,
       style: titleTextStyle,
     };
-
+    
     return (
       <View {...containerProps}>
         <Animated.View {...inputContainerProps}>
           {disabled && <Line {...lineProps} />}
-
+      
           <Label {...labelProps}>{label}</Label>
 
           <View style={styles.row}>
             {this.renderAffix('prefix', active, focused)}
 
-            {type && type != '' &&
-              <TextInputMask
-                style={[styles.input, inputStyle, inputStyleOverrides]}
-                selectionColor={tintColor}
+            {this.props.enableMask 
+              ? (
+                <TextInputMask
+                  style={[styles.input, inputStyle, inputStyleOverrides]}
+                  selectionColor={tintColor}
 
-                {...props}
+                  {...props}
 
-                type={type}
-                editable={!disabled && editable}
-                onChange={this.onChange}
-                onChangeText={this.onChangeText}
-                onContentSizeChange={this.onContentSizeChange}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                value={value}
-                ref={this.updateRef}
-              />
+                  type={type}
+                  editable={!disabled && editable}
+                  onChange={this.onChange}
+                  onChangeText={this.onChangeText}
+                  onContentSizeChange={this.onContentSizeChange}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  value={value}
+                  refInput={this.updateRef}
+                />
+              ) : (
+                <TextInput
+                  style={[styles.input, inputStyle, inputStyleOverrides]}
+                  selectionColor={tintColor}
+
+                  {...props}
+                  editable={!disabled && editable}
+                  onChange={this.onChange}
+                  onChangeText={this.onChangeText}
+                  onContentSizeChange={this.onContentSizeChange}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  value={value}
+                  ref={this.updateRef}
+                />   
+              )
             }
-
-            {!type || type == '' &&
-              <TextInput
-                style={[styles.input, inputStyle, inputStyleOverrides]}
-                selectionColor={tintColor}
-
-                {...props}
-                editable={!disabled && editable}
-                onChange={this.onChange}
-                onChangeText={this.onChangeText}
-                onContentSizeChange={this.onContentSizeChange}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                value={value}
-                refInput={this.updateRef}
-              />
-            }
-
             {this.renderAffix('suffix', active, focused)}
             {this.renderAccessory()}
           </View>
