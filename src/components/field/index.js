@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import {
   View,
   Text,
-  //TextInput,
+  TextInput,
   Animated,
   StyleSheet,
   Platform,
@@ -168,7 +168,7 @@ export default class TextField extends PureComponent {
   }
 
   updateRef(name, ref) {
-    this[name] = ref;
+      this[name] = ref;
   }
 
   focusState(error, focused) {
@@ -358,6 +358,7 @@ export default class TextField extends PureComponent {
       inputContainerStyle: inputContainerStyleOverrides,
       clearTextOnFocus,
       helpersNumberOfLines,
+      type,
       ...props
     } = this.props;
 
@@ -523,21 +524,41 @@ export default class TextField extends PureComponent {
           <View style={styles.row}>
             {this.renderAffix('prefix', active, focused)}
 
-            <TextInputMask
-              style={[styles.input, inputStyle, inputStyleOverrides]}
-              selectionColor={tintColor}
+            {type && type != '' &&
+              <TextInputMask
+                style={[styles.input, inputStyle, inputStyleOverrides]}
+                selectionColor={tintColor}
 
-              {...props}
+                {...props}
 
-              editable={!disabled && editable}
-              onChange={this.onChange}
-              onChangeText={this.onChangeText}
-              onContentSizeChange={this.onContentSizeChange}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              value={value}
-              ref={this.updateRef}
-            />
+                type={type}
+                editable={!disabled && editable}
+                onChange={this.onChange}
+                onChangeText={this.onChangeText}
+                onContentSizeChange={this.onContentSizeChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                value={value}
+                ref={this.updateRef}
+              />
+            }
+
+            {!type || type == '' &&
+              <TextInput
+                style={[styles.input, inputStyle, inputStyleOverrides]}
+                selectionColor={tintColor}
+
+                {...props}
+                editable={!disabled && editable}
+                onChange={this.onChange}
+                onChangeText={this.onChangeText}
+                onContentSizeChange={this.onContentSizeChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                value={value}
+                refInput={this.updateRef}
+              />
+            }
 
             {this.renderAffix('suffix', active, focused)}
             {this.renderAccessory()}
