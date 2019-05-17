@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
 
   flex: {
-    flex: 1,
+    //flex: 1,
   },
 
   accessory: {
