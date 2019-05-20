@@ -457,7 +457,7 @@ export default class TextField extends PureComponent {
     let titleFontSizeMultiplier = this.props.helpersNumberOfLines;
 
     let helperContainerStyle = {
-      flexDirection: 'row',
+      //flexDirection: 'row',
       height: (title || limit)?
         titleFontSize * 2 * titleFontSizeMultiplier:
         focus.interpolate({
